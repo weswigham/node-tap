@@ -8,6 +8,7 @@
     "tap": "bin/run.js"
   },
   "main": "lib/tap.js",
+  "types": "types/tap.d.ts",
   "engines": {
     "node": ">=8"
   },
@@ -15,6 +16,9 @@
     "treport",
     "ink"
   ],
+  "devDependencies": {
+    "@types/node": "*"
+  },
   "dependencies": {
     "async-hook-domain": "^1.1.0",
     "bind-obj-methods": "^2.0.0",
@@ -54,7 +58,7 @@
     "treport": "^0.4.0",
     "trivial-deferred": "^1.0.1",
     "ts-node": "^8.3.0",
-    "typescript": "^3.5.3",
+    "typescript": "https://typescript.visualstudio.com/cf7ac146-d525-443c-b23c-0d58337efebc/_apis/build/builds/41996/artifacts?artifactName=tgz&fileId=967EC7B6DC9AAC54797655C1C1403FFCE2BEBB49FBAD58A0AC397F5F2F10AEE202&fileName=/typescript-3.7.0-insiders.20190829.tgz",
     "which": "^1.3.1",
     "write-file-atomic": "^3.0.0",
     "yaml": "^1.6.0",
@@ -75,7 +79,8 @@
     "posttest": "rm -rf cli-tests-*",
     "postunit": "npm run posttest",
     "t": "node bin/run.js test -J -sfails.txt",
-    "preversion": "npm test",
+    "tscheck": "tsc --declaration --emitDeclarationOnly --declarationDir ./types --allowJs --checkJs --target es6 --module commonjs ./lib/tap.js",
+    "preversion": "npm test; npm run tscheck",
     "postversion": "npm publish",
     "postpublish": "bash postpublish.sh",
     "www:build": "cd docs; npm ci; npm run build",
